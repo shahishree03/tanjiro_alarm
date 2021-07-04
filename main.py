@@ -9,17 +9,17 @@ import numpy as np
 
 path = os.getcwd()
 
-alarm_path = path + '\myalarm'
+musicp = path + '\myalarm'
 
 # If no directory present, create one.
-if not os.path.isdir(alarm_path):
-    os.makedirs(alarm_path)
+if not os.path.isdir(musicp):
+    os.makedirs(musicp)
 
 # Ask user to add some alarm tunes to the folder.
-while len(os.listdir(alarm_path)) == 0:
+while len(os.listdir(musicp)) == 0:
     print("In your file myfiles if no mp3 player present  Please add some tunes to the folder before proceeding.")
     confirm = input("Have you added songs? Press Y or N:\t")
-    if (confirm == "Y"):
+    if (confirm == "Y" or confirm =="y" or confirm=="Yes" or confirm =="yes" or confirm == "YES"):
         print("Cool ,Let;s go buddy")
         continue
     else:
@@ -27,7 +27,7 @@ while len(os.listdir(alarm_path)) == 0:
 
 
 
-def List_diff(list1, list2):
+def Tanjiro(list1, list2):
     if len(list1) >= len(list2):
         return (list(set(list1) - set(list2)))
     else:
@@ -36,7 +36,7 @@ def List_diff(list1, list2):
 
 
 if not os.path.isfile("tune_parameters.csv"):
-    tune_list = os.listdir(alarm_path)
+    tune_list = os.listdir(musicp)
     tune_time = [60] * len(tune_list)
     tune_counter = [1] * len(tune_list)
     tune_avg = [60] * len(tune_list)
@@ -46,9 +46,9 @@ if not os.path.isfile("tune_parameters.csv"):
 
 else:
     tune_df = pd.read_csv("tune_parameters.csv")
-    tune_list_os = os.listdir(alarm_path)
+    tune_list_os = os.listdir(musicp)
     tune_list = list(tune_df['Tunes'])
-    tune_diff = List_diff(tune_list_os, tune_list)
+    tune_diff = Tanjiro(tune_list_os, tune_list)
     tune_time = list(tune_df['Delay Times'])
     tune_counter = list(tune_df['Count'])
     tune_avg = list(tune_df['Average'])
@@ -103,26 +103,26 @@ while (True):
     if verify_alarm(hour, minute, seconds):
         break
     else:
-        print("Ohhh !!! Wrong Time Entered! Please enter again!")
+        print("Ohhh !!! Wrong Time Entered! Please enter again! tanjiro waits for you ")
 
-# Converting the alarm time to seconds
+
 alarm_sec = hour * 3600 + minute * 60 + seconds
 
-# Getting current time and converting it to seconds
+
 curr_time = datetime.datetime.now()
 curr_sec = curr_time.hour * 3600 + curr_time.minute * 60 + curr_time.second
 
-# Calculating the number of seconds left for alarm
+
 time_diff = alarm_sec - curr_sec
 
-# If time difference is negative, it means the alarm is for next day.
+
 if time_diff < 0:
     time_diff += 86400
 
-# Displaying the time left for alarm
-print("Time left for alarm is %s" % datetime.timedelta(seconds=time_diff))
 
-# Sleep until the time at which alarm rings
+print("Time left for go ahead for mission is %s" % datetime.timedelta(seconds=time_diff))
+
+
 time.sleep(time_diff)
 
 print("Wake up IT's time to do something go AHead !!! ")
@@ -131,21 +131,20 @@ print("Wake up IT's time to do something go AHead !!! ")
 tune_choice_np = np.random.choice(tune_list, 1, tune_prob)
 tune_choice = tune_choice_np[0]
 
-# Getting the index of chosen tune in list
+
 tune_index = tune_list.index(tune_choice)
 
-# Play the alarm tune
-mixer.init()
-mixer.music.load(alarm_path + "/" + tune_choice)
 
-# Setting loops=-1 to ensure that alarm only stops when user stops it!
+mixer.init()
+mixer.music.load(musicp + "/" + tune_choice)
+
+
 mixer.music.play(loops=-1)
 
-# Asking user to stop the alarm
 input("Enter to stop this alarm")
 mixer.music.stop()
 
-# Finding the time of stopping the alarm
+
 time_stop = datetime.datetime.now()
 stop_sec = time_stop.hour * 3600 + time_stop.minute * 60 + time_stop.second
 
@@ -171,14 +170,14 @@ for i in range(0, len(tune_list)):
 tune_rec = [[[[[[]]]]]]
 
 for i in range(0, len(tune_list)):
-    temp = []
-    temp.append(tune_list[i])
-    temp.append(tune_time[i])
-    temp.append(tune_counter[i])
-    temp.append(tune_avg[i])
-    temp.append(tune_prob_rev[i])
-    temp.append(tune_prob[i])
-    tune_rec.append(temp)
+    nezuko=[]
+    nezuko.append(tune_list[i])
+    nezuko.append(tune_time[i])
+    nezuko.append(tune_counter[i])
+    nezuko.append(tune_avg[i])
+    nezuko.append(tune_prob_rev[i])
+    nezuko.append(tune_prob[i])
+    tune_rec.append(nezuko)
 
 tune_rec.pop(0)
 
